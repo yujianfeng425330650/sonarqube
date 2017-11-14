@@ -11,3 +11,5 @@
    sonar.java.binaries=$WORKSPACE/xxxx/target/classes
    sonar.language=java
    #####################
+注：由于sonar-scanner采取自动安装，需要触发构建项目后再手工修改相应配置(构建会失败)
+
