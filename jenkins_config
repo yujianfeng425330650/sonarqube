@@ -1,0 +1,13 @@
+1、jenkins系统管理-->系统设置-->全局属性-->sonarqube servers配置
+2、jenkins系统管理-->Global Tool Configuration-->sonarqube scanner配置(2.8版本)
+3、项目构建添加：
+   Post Steps添加：Execute SonarQube Scanner-->Analysis properties
+   #####################
+   sonar.projectKey=project_key
+   sonar.projectName=project_name
+   sonar.projectVersion=1.0
+   sonar.sources=$WORKSPACE
+   sonar.sourceEncoding=UTF-8
+   sonar.java.binaries=$WORKSPACE/xxxx/target/classes
+   sonar.language=java
+   #####################
