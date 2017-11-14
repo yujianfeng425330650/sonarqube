@@ -1,0 +1,41 @@
+version: '2'
+services:
+  sonarqube:
+    image: docker.youshehui.com/hlxg/sonarqube:6.5
+    container_name: sonarqube-server
+    restart: always
+    ports: 
+      - 0.0.0.0:9000:9000
+    networks:
+      - sonarnet
+    depends_on:
+      - mysql
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://mysql:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar 
+    volumes:
+      #- /srv/docker/sonarqube/conf:/opt/sonarqube/conf
+      - /srv/docker/sonarqube/data:/opt/sonarqube/data
+    mem_limit: 3g
+  
+  mysql:
+    image: docker.youshehui.com/hlxg/mysql:5.7.20
+    container_name: sonarqube-mysql
+    restart: always
+    ports:
+      - 0.0.0.0:3306:3306
+    networks:
+      - sonarnet
+    environment:
+      - MYSQL_USER=sonar
+      - MYSQL_PASSWORD=sonar
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=sonar
+    volumes:
+      - /srv/docker/mysql/data:/var/lib/mysql
+    mem_limit: 1g
+
+networks:
+  sonarnet:
+    driver: bridge 
